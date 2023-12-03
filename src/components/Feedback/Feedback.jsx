@@ -1,3 +1,4 @@
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
 const StyledButton = styled.button`
@@ -23,14 +24,20 @@ const StyledButton = styled.button`
   }
 `;
 
-const Feedback = ({ options, onLeaveFeedback }) => (
+const Feedback = ({ options, onLeaveFeedback }) => {
+  const handleFeedback = useCallback((option) => {
+    onLeaveFeedback(option);
+  }, [onLeaveFeedback]);
+
+  return (
     <div>
       {options.map(option => (
-        <StyledButton key={option} onClick={() => onLeaveFeedback(option)}>
+        <StyledButton key={option} onClick={() => handleFeedback(option)}>
           {option}
         </StyledButton>
       ))}
     </div>
-);
+  );
+};
 
 export default Feedback;
